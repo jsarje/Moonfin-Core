@@ -6226,6 +6226,42 @@ abstract class AppLocalizations {
   /// **'Show ratings on individual episodes'**
   String get showRatingsOnEpisodes;
 
+  /// Setting for hiding movie descriptions to avoid spoilers
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Movie Descriptions'**
+  String get hideMovieDescriptions;
+
+  /// Description for hiding movie descriptions
+  ///
+  /// In en, this message translates to:
+  /// **'Hide descriptions for movies you haven't fully watched'**
+  String get hideMovieDescriptionsSubtitle;
+
+  /// Setting for hiding episode descriptions to avoid spoilers
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Episode Descriptions'**
+  String get hideEpisodeDescriptions;
+
+  /// Description for hiding episode descriptions
+  ///
+  /// In en, this message translates to:
+  /// **'Hide season and episode descriptions for episodes you haven't fully watched'**
+  String get hideEpisodeDescriptionsSubtitle;
+
+  /// Placeholder shown instead of a description hidden to avoid spoilers
+  ///
+  /// In en, this message translates to:
+  /// **'Description hidden to avoid spoilers'**
+  String get spoilerHiddenPlaceholder;
+
+  /// Hint that tapping a hidden spoiler will reveal it
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to reveal'**
+  String get tapToRevealSpoiler;
+
   /// Section title for rating sources
   ///
   /// In en, this message translates to:

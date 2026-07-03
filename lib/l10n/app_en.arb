@@ -4686,6 +4686,30 @@
   "@showRatingsOnEpisodes": {
     "description": "Description for episode ratings"
   },
+  "hideMovieDescriptions": "Hide Movie Descriptions",
+  "@hideMovieDescriptions": {
+    "description": "Setting for hiding movie descriptions to avoid spoilers"
+  },
+  "hideMovieDescriptionsSubtitle": "Hide descriptions for movies you haven't fully watched",
+  "@hideMovieDescriptionsSubtitle": {
+    "description": "Description for hiding movie descriptions"
+  },
+  "hideEpisodeDescriptions": "Hide Episode Descriptions",
+  "@hideEpisodeDescriptions": {
+    "description": "Setting for hiding episode descriptions to avoid spoilers"
+  },
+  "hideEpisodeDescriptionsSubtitle": "Hide season and episode descriptions for episodes you haven't fully watched",
+  "@hideEpisodeDescriptionsSubtitle": {
+    "description": "Description for hiding episode descriptions"
+  },
+  "spoilerHiddenPlaceholder": "Description hidden to avoid spoilers",
+  "@spoilerHiddenPlaceholder": {
+    "description": "Placeholder shown instead of a description hidden to avoid spoilers"
+  },
+  "tapToRevealSpoiler": "Tap to reveal",
+  "@tapToRevealSpoiler": {
+    "description": "Hint that tapping a hidden spoiler will reveal it"
+  },
   "ratingSources": "Rating Sources",
   "@ratingSources": {
     "description": "Section title for rating sources"

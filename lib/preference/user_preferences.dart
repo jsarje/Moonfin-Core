@@ -255,6 +255,8 @@ class UserPreferences extends ChangeNotifier {
     'showRatingLabels',
     'showRatingBadges',
     'enableEpisodeRatings',
+    'pref_hide_movie_overviews',
+    'pref_hide_show_overviews',
     'tmdbApiKey',
     'seerrEnabled',
     'seerrBlockNsfw',
@@ -1589,6 +1591,23 @@ class UserPreferences extends ChangeNotifier {
 
   static final enableEpisodeRatings = Preference(
     key: 'enableEpisodeRatings',
+    defaultValue: false,
+  );
+
+  /// Hides movie descriptions/overviews for movies that haven't been fully
+  /// watched, to avoid spoilers. Does not affect series/season/episode
+  /// overviews; see [hideShowOverviews] for those.
+  static final hideMovieOverviews = Preference<bool>(
+    key: 'pref_hide_movie_overviews',
+    defaultValue: false,
+  );
+
+  /// Hides season and episode descriptions/overviews that haven't been
+  /// fully watched, to avoid spoilers. Series-level overviews are never
+  /// hidden, since they describe the show's general premise rather than
+  /// specific plot events.
+  static final hideShowOverviews = Preference<bool>(
+    key: 'pref_hide_show_overviews',
     defaultValue: false,
   );
 

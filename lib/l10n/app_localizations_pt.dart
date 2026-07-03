@@ -8852,6 +8852,24 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get impellerCloseNow => 'Close app now';
+  @override
+  String get hideMovieDescriptions => 'Hide Movie Descriptions';
+
+  @override
+  String get hideMovieDescriptionsSubtitle => 'Hide descriptions for movies you haven\'t fully watched';
+
+  @override
+  String get hideEpisodeDescriptions => 'Hide Episode Descriptions';
+
+  @override
+  String get hideEpisodeDescriptionsSubtitle => 'Hide season and episode descriptions for episodes you haven\'t fully watched';
+
+  @override
+  String get spoilerHiddenPlaceholder => 'Description hidden to avoid spoilers';
+
+  @override
+  String get tapToRevealSpoiler => 'Tap to reveal';
+
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
