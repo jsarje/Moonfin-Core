@@ -10,8 +10,10 @@ import '../../l10n/app_localizations.dart';
 import '../../l10n/current_app_localizations.dart';
 import '../../preference/user_preferences.dart';
 import '../../util/platform_detection.dart';
+import '../../util/spoiler_utils.dart';
 import 'rating_display.dart';
 import 'simple_info_row.dart';
+import 'spoiler_text.dart';
 
 const _textShadows = [Shadow(blurRadius: 4, color: Colors.black54)];
 const _myMediaSummarySeparator = ' \u2022 ';
@@ -622,8 +624,13 @@ class _InfoAreaContentState extends State<_InfoAreaContent> {
           Expanded(
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text(
-                item.overview ?? '',
+              child: SpoilerText(
+                text: item.overview ?? '',
+                hidden: SpoilerUtils.shouldHideOverview(
+                  type: item.type,
+                  isPlayed: item.isPlayed,
+                  prefs: _prefs,
+                ),
                 style: overviewStyle,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,

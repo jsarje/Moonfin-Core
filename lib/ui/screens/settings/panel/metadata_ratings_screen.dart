@@ -85,6 +85,25 @@ class _MetadataRatingsScreenState extends State<_MetadataRatingsScreen> {
                         ),
                       ],
                     ),
+                    _SectionHeader(l10n.spoilersSectionTitle),
+                    adaptiveListSection(
+                      children: [
+                        SwitchPreferenceTile(
+                          preference: UserPreferences.hideMovieOverviews,
+                          title: l10n.hideMovieDescriptions,
+                          subtitle: l10n.hideMovieDescriptionsSubtitle,
+                          icon: Icons.visibility_off,
+                          onChanged: _pushPersonalizationSync,
+                        ),
+                        SwitchPreferenceTile(
+                          preference: UserPreferences.hideShowOverviews,
+                          title: l10n.hideEpisodeDescriptions,
+                          subtitle: l10n.hideEpisodeDescriptionsSubtitle,
+                          icon: Icons.visibility_off,
+                          onChanged: _pushPersonalizationSync,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

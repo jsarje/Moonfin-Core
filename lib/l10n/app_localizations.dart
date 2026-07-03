@@ -6226,6 +6226,12 @@ abstract class AppLocalizations {
   /// **'Show ratings on individual episodes'**
   String get showRatingsOnEpisodes;
 
+  /// Section title for spoiler-hiding settings
+  ///
+  /// In en, this message translates to:
+  /// **'Spoilers'**
+  String get spoilersSectionTitle;
+
   /// Setting for hiding movie descriptions to avoid spoilers
   ///
   /// In en, this message translates to:

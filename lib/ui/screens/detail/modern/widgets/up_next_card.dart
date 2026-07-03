@@ -4,6 +4,7 @@ import 'package:moonfin_design/moonfin_design.dart';
 
 import '../../../../widgets/adaptive/adaptive_glass.dart';
 import '../../../../widgets/focus/focusable_wrapper.dart';
+import '../../../../widgets/spoiler_text.dart';
 
 /// Glass "Up Next" card: a small label badge on top, then a thumbnail with a
 /// play overlay on the left and the episode title + short description on the
@@ -13,6 +14,7 @@ class UpNextCard extends StatefulWidget {
   final String label;
   final String title;
   final String? description;
+  final bool descriptionHidden;
   final String? imageUrl;
   final double progress; // 0..1
   final String? remainingLabel;
@@ -28,6 +30,7 @@ class UpNextCard extends StatefulWidget {
     required this.label,
     required this.title,
     required this.description,
+    this.descriptionHidden = false,
     required this.imageUrl,
     required this.progress,
     required this.remainingLabel,
@@ -207,8 +210,9 @@ class _UpNextCardState extends State<UpNextCard> {
                                 children: [
                                   if (widget.description != null &&
                                       widget.description!.isNotEmpty) ...[
-                                    Text(
-                                      widget.description!,
+                                    SpoilerText(
+                                      text: widget.description!,
+                                      hidden: widget.descriptionHidden,
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: textTheme.bodySmall

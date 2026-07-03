@@ -4686,6 +4686,10 @@
   "@showRatingsOnEpisodes": {
     "description": "Description for episode ratings"
   },
+  "spoilersSectionTitle": "Spoilers",
+  "@spoilersSectionTitle": {
+    "description": "Section title for spoiler-hiding settings"
+  },
   "hideMovieDescriptions": "Hide Movie Descriptions",
   "@hideMovieDescriptions": {
     "description": "Setting for hiding movie descriptions to avoid spoilers"

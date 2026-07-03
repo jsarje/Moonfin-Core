@@ -59,12 +59,14 @@ import '../../widgets/navigation_layout.dart';
 import '../../widgets/responsive_layout.dart';
 import '../../widgets/seasonal_effects.dart';
 import '../../widgets/settings/settings_panel.dart';
+import '../../widgets/spoiler_text.dart';
 import '../../widgets/top_toolbar.dart';
 import '../../navigation/home_refresh_bus.dart';
 import '../../widgets/bounded_network_image.dart';
 import '../../widgets/fullscreen_backdrop_switcher.dart';
 import '../../navigation/route_lifecycle_observer.dart';
 import '../../util/home_row_title_localizer.dart';
+import '../../util/spoiler_utils.dart';
 import '../../../util/game_library.dart';
 import 'home_view_model.dart';
 
@@ -4350,8 +4352,13 @@ class _ContentRowsState extends State<_ContentRows>
                     if (overview.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
-                        child: Text(
-                          overview,
+                        child: SpoilerText(
+                          text: overview,
+                          hidden: SpoilerUtils.shouldHideOverview(
+                            type: item.type,
+                            isPlayed: item.isPlayed,
+                            prefs: widget.prefs,
+                          ),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: overviewStyle,

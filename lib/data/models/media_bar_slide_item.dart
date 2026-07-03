@@ -15,6 +15,7 @@ class MediaBarSlideItem {
   final String? tmdbId;
   final String? imdbId;
   final String itemType;
+  final bool isPlayed;
   final List<Map<String, dynamic>> remoteTrailers;
 
   const MediaBarSlideItem({
@@ -34,6 +35,7 @@ class MediaBarSlideItem {
     this.tmdbId,
     this.imdbId,
     this.itemType = 'Movie',
+    this.isPlayed = false,
     this.remoteTrailers = const [],
   });
 }

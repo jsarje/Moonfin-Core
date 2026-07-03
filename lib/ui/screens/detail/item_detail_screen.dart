@@ -43,6 +43,7 @@ import '../../widgets/adaptive/sf_symbol.dart';
 import '../../widgets/add_to_playlist_dialog.dart';
 import '../../widgets/logo_view.dart';
 import '../../widgets/media_card.dart';
+import '../../widgets/spoiler_text.dart';
 import '../../widgets/change_artwork_dialog.dart';
 import '../../widgets/navigation_layout.dart';
 import '../../widgets/horizontal_scroll_section.dart';
@@ -69,6 +70,7 @@ import '../../../util/language_matching.dart';
 import '../../../util/subtitle_track_logic.dart';
 import '../../../util/audio_track_logic.dart';
 import '../../../util/platform_detection.dart';
+import '../../../util/spoiler_utils.dart';
 
 const _textShadows = [Shadow(blurRadius: 4, color: Colors.black54)];
 const _kCompactBreakpoint = 600.0;
@@ -3589,13 +3591,12 @@ class _HeaderSection extends StatelessWidget {
         ],
         if (item.overview != null && item.overview!.isNotEmpty) ...[
           const SizedBox(height: 8),
-          _OverviewText(
+          SpoilerText(
             text: item.overview!,
-            focusNode: overviewFocusNode,
-            onArrowUp: onArrowUp,
-            onArrowDown: onArrowDown,
-            onArrowLeft: onArrowLeft,
-            onCollapse: onCollapseBiography,
+            hidden: SpoilerUtils.shouldHideOverview(
+              type: item.type,
+              isPlayed: item.isPlayed,
+            ),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: ThemeRegistry.active.id == ThemeRegistry.neonPulseId
                   ? AppColorScheme.onSurface
@@ -3605,6 +3606,23 @@ class _HeaderSection extends StatelessWidget {
               fontSize: isMobile ? 13 : null,
             ),
             textAlign: isMobile ? TextAlign.center : null,
+            builder: (context, text) => _OverviewText(
+              text: text,
+              focusNode: overviewFocusNode,
+              onArrowUp: onArrowUp,
+              onArrowDown: onArrowDown,
+              onArrowLeft: onArrowLeft,
+              onCollapse: onCollapseBiography,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: ThemeRegistry.active.id == ThemeRegistry.neonPulseId
+                    ? AppColorScheme.onSurface
+                    : Colors.white.withValues(alpha: 0.8),
+                shadows: _textShadows,
+                height: 1.4,
+                fontSize: isMobile ? 13 : null,
+              ),
+              textAlign: isMobile ? TextAlign.center : null,
+            ),
           ),
         ],
       ],
@@ -11649,8 +11667,12 @@ class DetailNextUpCardState extends State<DetailNextUpCard> with FocusStateMixin
                         ),
                         if (episode.overview != null) ...[
                           const SizedBox(height: 4),
-                          Text(
-                            episode.overview!,
+                          SpoilerText(
+                            text: episode.overview!,
+                            hidden: SpoilerUtils.shouldHideOverview(
+                              type: episode.type,
+                              isPlayed: episode.isPlayed,
+                            ),
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
                                   color: isNeon
@@ -11897,8 +11919,12 @@ class DetailEpisodeCardState extends State<DetailEpisodeCard> with FocusStateMix
                         ],
                         if (episode.overview != null) ...[
                           const SizedBox(height: 4),
-                          Text(
-                            episode.overview!,
+                          SpoilerText(
+                            text: episode.overview!,
+                            hidden: SpoilerUtils.shouldHideOverview(
+                              type: episode.type,
+                              isPlayed: episode.isPlayed,
+                            ),
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
                                   color: isNeon

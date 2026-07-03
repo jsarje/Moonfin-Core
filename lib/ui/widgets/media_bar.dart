@@ -31,6 +31,7 @@ import '../navigation/destinations.dart';
 import '../../util/language_matching.dart';
 import '../../util/overlay_color_palette.dart';
 import '../../util/platform_detection.dart';
+import '../../util/spoiler_utils.dart';
 import '../../l10n/app_localizations.dart';
 import '../../playback/appletv_preview_player.dart';
 import '../../playback/device_profile_builder.dart';
@@ -43,6 +44,7 @@ import 'mediabar/bookshelf_layout.dart';
 import 'mediabar/gallery_coverflow.dart';
 import 'mediabar/gallery_layout.dart';
 import 'rating_display.dart';
+import 'spoiler_text.dart';
 import 'web_local_trailer.dart';
 import 'web_youtube_trailer.dart';
 
@@ -2845,8 +2847,12 @@ class _SlideInfo extends StatelessWidget {
                       14) *
                   1.4 *
                   (isMobile ? 2 : 3),
-              child: Text(
-                item.overview ?? '',
+              child: SpoilerText(
+                text: item.overview ?? '',
+                hidden: SpoilerUtils.shouldHideOverview(
+                  type: item.itemType,
+                  isPlayed: item.isPlayed,
+                ),
                 style:
                     (isMobile
                             ? theme.textTheme.bodySmall
@@ -3114,8 +3120,12 @@ class _MakdContent extends StatelessWidget {
         ],
         if (!isMobile && (item.overview?.isNotEmpty ?? false)) ...[
           const SizedBox(height: 10),
-          Text(
-            item.overview!,
+          SpoilerText(
+            text: item.overview!,
+            hidden: SpoilerUtils.shouldHideOverview(
+              type: item.itemType,
+              isPlayed: item.isPlayed,
+            ),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodyMedium?.copyWith(

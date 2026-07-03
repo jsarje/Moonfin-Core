@@ -4,6 +4,8 @@ import 'package:moonfin_design/moonfin_design.dart';
 import '../../../data/models/gallery_detail.dart';
 import '../../../data/models/media_bar_slide_item.dart';
 import '../../../util/platform_detection.dart';
+import '../../../util/spoiler_utils.dart';
+import '../spoiler_text.dart';
 
 class GalleryActiveCard extends StatelessWidget {
   final MediaBarSlideItem item;
@@ -124,8 +126,12 @@ class _LeftColumn extends StatelessWidget {
         ],
         if (item.overview?.isNotEmpty ?? false) ...[
           const SizedBox(height: 14),
-          Text(
-            item.overview!,
+          SpoilerText(
+            text: item.overview!,
+            hidden: SpoilerUtils.shouldHideOverview(
+              type: item.itemType,
+              isPlayed: item.isPlayed,
+            ),
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodyLarge?.copyWith(

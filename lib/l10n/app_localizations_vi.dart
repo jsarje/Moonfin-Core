@@ -8805,6 +8805,9 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get impellerCloseNow => 'Close app now';
   @override
+  String get spoilersSectionTitle => 'Spoilers';
+
+  @override
   String get hideMovieDescriptions => 'Hide Movie Descriptions';
 
   @override

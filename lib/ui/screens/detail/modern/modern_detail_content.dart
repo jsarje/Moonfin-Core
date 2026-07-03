@@ -20,6 +20,7 @@ import '../../../../preference/user_preferences.dart';
 import '../../../../preference/preference_constants.dart';
 import '../../../../util/platform_detection.dart';
 import '../../../../util/focus/dpad_keys.dart';
+import '../../../../util/spoiler_utils.dart';
 import '../../../navigation/destinations.dart';
 import '../../../widgets/logo_view.dart';
 import '../../../widgets/media_card.dart';
@@ -28,6 +29,7 @@ import '../../../widgets/focus/focusable_wrapper.dart';
 import '../../../widgets/focus/focusable_toolbar_button.dart';
 import '../../../widgets/navigation_layout.dart';
 import '../../../widgets/top_toolbar.dart';
+import '../../../widgets/spoiler_text.dart';
 import '../../../../data/repositories/seerr_repository.dart';
 import '../../../../data/services/seerr/seerr_api_models.dart';
 import '../../../../data/services/plugin_sync_service.dart';
@@ -3381,28 +3383,39 @@ class _ModernDetailContentState extends State<ModernDetailContent> {
             constraints: BoxConstraints(
               maxWidth: _landscape ? 800 : double.infinity,
             ),
-            child: ExpandableBiography(
+            child: SpoilerText(
               text: overview,
-              toggleFocusNode: _overviewFocusNode,
-              onArrowDown: () {
-                widget.initialFocusNode?.requestFocus();
-              },
-              onArrowUp: () {
-                NavigationLayout.focusNavbarNotifier.value?.call();
-              },
-              onArrowLeft: () {
-                final navbarPosition = widget.prefs.get(UserPreferences.navbarPosition);
-                if (navbarPosition == NavbarPosition.left) {
-                  NavigationLayout.focusNavbarNotifier.value?.call();
-                }
-              },
-              onArrowRight: hasUpNext
-                  ? () => _upNextFocusNode.requestFocus()
-                  : null,
-              onCollapse: widget.onCollapseBiography,
+              hidden: SpoilerUtils.shouldHideOverview(
+                type: item.type,
+                isPlayed: item.isPlayed,
+              ),
               style: textTheme.bodyMedium?.copyWith(
                 height: 1.45,
                 color: AppColorScheme.onSurface.withValues(alpha: 0.85),
+              ),
+              builder: (context, text) => ExpandableBiography(
+                text: text,
+                toggleFocusNode: _overviewFocusNode,
+                onArrowDown: () {
+                  widget.initialFocusNode?.requestFocus();
+                },
+                onArrowUp: () {
+                  NavigationLayout.focusNavbarNotifier.value?.call();
+                },
+                onArrowLeft: () {
+                  final navbarPosition = widget.prefs.get(UserPreferences.navbarPosition);
+                  if (navbarPosition == NavbarPosition.left) {
+                    NavigationLayout.focusNavbarNotifier.value?.call();
+                  }
+                },
+                onArrowRight: hasUpNext
+                    ? () => _upNextFocusNode.requestFocus()
+                    : null,
+                onCollapse: widget.onCollapseBiography,
+                style: textTheme.bodyMedium?.copyWith(
+                  height: 1.45,
+                  color: AppColorScheme.onSurface.withValues(alpha: 0.85),
+                ),
               ),
             ),
           ),
@@ -3640,6 +3653,10 @@ class _ModernDetailContentState extends State<ModernDetailContent> {
       label: combinedLabel,
       title: '',
       description: episode.overview?.trim(),
+      descriptionHidden: SpoilerUtils.shouldHideOverview(
+        type: episode.type,
+        isPlayed: episode.isPlayed,
+      ),
       imageUrl: _imageUrl(episode),
       progress: progress,
       remainingLabel: _remainingLabel(episode, l10n),

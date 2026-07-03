@@ -16,12 +16,14 @@ import '../../data/services/media_server_client_factory.dart';
 import '../../l10n/app_localizations.dart';
 import '../../preference/user_preferences.dart';
 import '../../util/platform_detection.dart';
+import '../../util/spoiler_utils.dart';
 import '../navigation/destinations.dart';
 import 'focusable_dialog_row.dart';
 import 'media_card.dart';
 import 'overlay_sheet.dart';
 import 'rating_display.dart';
 import 'shuffle_options_dialog.dart';
+import 'spoiler_text.dart';
 
 const _kShuffleCardCount = 5;
 const _kShuffleLoadTimeout = Duration(seconds: 25);
@@ -1511,6 +1513,12 @@ class _ShuffleOverlayState extends State<_ShuffleOverlay> {
 
     final overview = (item.overview ?? '').trim();
     final overviewText = overview.isEmpty ? _heroTagline(item) : overview;
+    final overviewHidden = overview.isNotEmpty &&
+        SpoilerUtils.shouldHideOverview(
+          type: item.type,
+          isPlayed: item.isPlayed,
+          prefs: _prefs,
+        );
     final overviewStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
       color: AppColorScheme.onSurface.withValues(alpha: 0.86),
       height: 1.3,
@@ -1540,8 +1548,9 @@ class _ShuffleOverlayState extends State<_ShuffleOverlay> {
             const SizedBox(height: 8),
             ConstrainedBox(
               constraints: BoxConstraints(minHeight: overviewMinHeight),
-              child: Text(
-                overviewText,
+              child: SpoilerText(
+                text: overviewText,
+                hidden: overviewHidden,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: overviewStyle,

@@ -17,6 +17,8 @@ import '../../widgets/offline_image.dart';
 import '../../widgets/overlay_sheet.dart';
 import '../../widgets/adaptive/adaptive_dialog.dart';
 import '../../widgets/focus/request_initial_focus.dart';
+import '../../widgets/spoiler_text.dart';
+import '../../../util/spoiler_utils.dart';
 
 class SavedSeasonScreen extends ConsumerWidget {
   final String seasonId;
@@ -147,6 +149,7 @@ class _EpisodeRow extends StatelessWidget {
     final runtime = metadata['RunTimeTicks'] as int?;
     final durationMin = runtime != null ? (runtime / 600000000).round() : null;
     final overview = metadata['Overview'] as String? ?? '';
+    final isPlayed = (metadata['UserData'] as Map?)?['Played'] as bool? ?? false;
     final progress = episode.playbackPositionTicks > 0 && runtime != null && runtime > 0
         ? episode.playbackPositionTicks / runtime
         : null;
@@ -224,8 +227,12 @@ class _EpisodeRow extends StatelessWidget {
                   ],
                   if (overview.isNotEmpty) ...[
                     const SizedBox(height: 4),
-                    Text(
-                      overview,
+                    SpoilerText(
+                      text: overview,
+                      hidden: SpoilerUtils.shouldHideOverview(
+                        type: 'Episode',
+                        isPlayed: isPlayed,
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

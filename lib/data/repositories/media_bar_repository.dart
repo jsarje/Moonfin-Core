@@ -397,6 +397,7 @@ class MediaBarRepository {
       tmdbId: providerIds?['Tmdb'] as String?,
       imdbId: providerIds?['Imdb'] as String?,
       itemType: data['Type'] as String? ?? 'Movie',
+      isPlayed: (data['UserData'] as Map?)?['Played'] as bool? ?? false,
       remoteTrailers:
           (data['RemoteTrailers'] as List?)?.cast<Map<String, dynamic>>() ??
           const [],
