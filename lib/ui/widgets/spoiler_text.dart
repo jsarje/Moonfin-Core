@@ -54,14 +54,15 @@ class _SpoilerTextState extends State<SpoilerText> {
 
     final l10n = AppLocalizations.of(context);
     final placeholder = '${l10n.spoilerHiddenPlaceholder} · ${l10n.tapToRevealSpoiler}';
+    final placeholderStyle = widget.style != null
+        ? widget.style!.copyWith(fontStyle: FontStyle.italic)
+        : const TextStyle(fontStyle: FontStyle.italic);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () => setState(() => _revealed = true),
       child: Text(
         placeholder,
-        style: (widget.style ?? const TextStyle()).copyWith(
-          fontStyle: FontStyle.italic,
-        ),
+        style: placeholderStyle,
         textAlign: widget.textAlign,
         maxLines: widget.maxLines,
         overflow: widget.overflow,

@@ -3591,38 +3591,11 @@ class _HeaderSection extends StatelessWidget {
         ],
         if (item.overview != null && item.overview!.isNotEmpty) ...[
           const SizedBox(height: 8),
-          SpoilerText(
-            text: item.overview!,
-            hidden: SpoilerUtils.shouldHideOverview(
-              type: item.type,
-              isPlayed: item.isPlayed,
-            ),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: ThemeRegistry.active.id == ThemeRegistry.neonPulseId
-                  ? AppColorScheme.onSurface
-                  : Colors.white.withValues(alpha: 0.8),
-              shadows: _textShadows,
-              height: 1.4,
-              fontSize: isMobile ? 13 : null,
-            ),
-            textAlign: isMobile ? TextAlign.center : null,
-            builder: (context, text) => _OverviewText(
-              text: text,
-              focusNode: overviewFocusNode,
-              onArrowUp: onArrowUp,
-              onArrowDown: onArrowDown,
-              onArrowLeft: onArrowLeft,
-              onCollapse: onCollapseBiography,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: ThemeRegistry.active.id == ThemeRegistry.neonPulseId
-                    ? AppColorScheme.onSurface
-                    : Colors.white.withValues(alpha: 0.8),
-                shadows: _textShadows,
-                height: 1.4,
-                fontSize: isMobile ? 13 : null,
-              ),
-              textAlign: isMobile ? TextAlign.center : null,
-            ),
+          _buildOverviewSection(
+            context,
+            item,
+            isMobile: isMobile,
+            overviewFocusNode: overviewFocusNode,
           ),
         ],
       ],
@@ -3682,6 +3655,41 @@ class _HeaderSection extends StatelessWidget {
           const SizedBox(width: 32),
           posterWidget,
         ],
+      ),
+    );
+  }
+
+  Widget _buildOverviewSection(
+    BuildContext context,
+    AggregatedItem item, {
+    required bool isMobile,
+    required FocusNode? overviewFocusNode,
+  }) {
+    final overviewTextStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+      color: ThemeRegistry.active.id == ThemeRegistry.neonPulseId
+          ? AppColorScheme.onSurface
+          : Colors.white.withValues(alpha: 0.8),
+      shadows: _textShadows,
+      height: 1.4,
+      fontSize: isMobile ? 13 : null,
+    );
+    return SpoilerText(
+      text: item.overview!,
+      hidden: SpoilerUtils.shouldHideOverview(
+        type: item.type,
+        isPlayed: item.isPlayed,
+      ),
+      style: overviewTextStyle,
+      textAlign: isMobile ? TextAlign.center : null,
+      builder: (context, text) => _OverviewText(
+        text: text,
+        focusNode: overviewFocusNode,
+        onArrowUp: onArrowUp,
+        onArrowDown: onArrowDown,
+        onArrowLeft: onArrowLeft,
+        onCollapse: onCollapseBiography,
+        style: overviewTextStyle,
+        textAlign: isMobile ? TextAlign.center : null,
       ),
     );
   }
